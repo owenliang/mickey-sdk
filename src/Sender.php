@@ -13,6 +13,7 @@ class Sender
 
     public function send($catData)
     {
+        // 获取CAT提交地址
         echo $catData . PHP_EOL;
     }
 

@@ -34,16 +34,19 @@ class Builder
 
     public function endTransaction($status, $data)
     {
-        $transCount = count($this->transStack);
-        if ($transCount) {
-            $tran = $this->transStack[$transCount - 1];
-            $tran->status = $status;
-            $tran->data = array_merge_recursive($tran->data, $data);
-            array_pop($this->transStack);
-            if (!count($this->transStack)) {    // root transaction已弹出, 准备发送给cat
-                return $tran;
-            }
+        $tran = $this->transStack[count($this->transStack) - 1];
+        $tran->duration = intval(microtime(true) * 1000) - $tran->timestamp;
+        $tran->status = $status;
+        $tran->data = array_merge_recursive($tran->data, $data);
+        array_pop($this->transStack);
+        if (!count($this->transStack)) {    // root transaction已弹出, 准备发送给cat
+            return $tran;
         }
         return false;
+    }
+
+    public function curTransaction()
+    {
+        return $this->transStack[count($this->transStack) - 1];
     }
 }

@@ -23,9 +23,27 @@ class Manager
         $this->sender = new Sender($this);
     }
 
-    public function setContext($context)
+    // 设置服务端上下文
+    public function setServerContext($context)
     {
         $this->context = $context;
+    }
+
+    // 获取服务端上下文
+    public function getServerContext()
+    {
+        return $this->context;
+    }
+
+    // 获取客户端上下文
+    public function getClientContext()
+    {
+        $curTran = $this->builder->curTransaction();
+        $context = new Context();
+        $context->catChildMessageId = $curTran->messageId;
+        $context->catParentMessageId = $this->context->catChildMessageId;
+        $context->catRootMessageId = $this->context->catRootMessageId;
+        return $context;
     }
 
     // 结束最近一个事务
@@ -44,14 +62,9 @@ class Manager
         $this->builder->addMessage($message);
     }
 
-    // 获取上下文信息
-
     // 分配message id
     public function generateMessageId()
     {
-        $hexIp = dechex(ip2long($this->context->ip));
-        $hour = intval(time() / 3600);
-
         $semKey = crc32('CAT-COUNTER-LOCK:' . $this->context->domain);
         $shmKey = crc32('CAT-COUNTER-SHM:' . $this->context->domain);
 
@@ -59,6 +72,8 @@ class Manager
         $shm = \shm_attach($shmKey, 1 * 1024); // 1KB
 
         \sem_acquire($sem); // 上锁
+
+        $hour = intval(time() / 3600);
 
         // 0: 当前计数所属的小时, 1:当前计数的值
         if (!\shm_has_var($shm, 0) ||
@@ -75,12 +90,8 @@ class Manager
 
         \sem_release($sem); //  放锁
 
-        return "{$this->context->domain}-{$hexIp}-{$hour}-{$counter}";
-    }
+        $hexIp = dechex(ip2long($this->context->ip));
 
-    // 获取分布式调用链上下文
-    public function getContext()
-    {
-        return $this->context;
+        return "{$this->context->domain}-{$hexIp}-{$hour}-{$counter}";
     }
 }

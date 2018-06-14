@@ -10,6 +10,9 @@ class Transaction extends Message
     // 事务唯一ID
     public $messageId;
 
+    // 耗时
+    public $duration;
+
     public function __construct($type, $name, $data = [])
     {
         parent::__construct($type, $name, self::SUCCESS, $data);
