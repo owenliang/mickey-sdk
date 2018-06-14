@@ -1,4 +1,5 @@
 <?php
+namespace cat;
 
 // Transaction, Event, Metrics...的基类
 class Message

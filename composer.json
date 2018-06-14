@@ -1,0 +1,15 @@
+{
+    "name": "liangdong/mickey-sdk",
+    "authors": [
+        {
+            "name": "liangdong",
+            "email": "liangdong@smzdm.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "cat\\": "src"
+        }
+    },
+    "require": {}
+}
