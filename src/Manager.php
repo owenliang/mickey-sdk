@@ -9,7 +9,7 @@ class Manager
     // 分布式调用链上下文
     private $msgTree;
 
-    // 构建MsgTree的所有上下文信息
+    // 构建本地transaction树的所有上下文信息
     private $context;
 
     public function __construct($msgTree)
@@ -23,7 +23,7 @@ class Manager
     {
         $rootTran = $this->context->endTransaction();
         if ($rootTran) {
-            // $this->>sender->buildAndSend($rootTran);
+            // $this->>sender->buildAndSend($msgTree, $rootTran);
         }
     }
 
