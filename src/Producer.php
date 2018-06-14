@@ -1,17 +1,12 @@
 <?php
 
-require_once __DIR__ . "/Message.php";
-require_once __DIR__ . "/Transaction.php";
-require_once __DIR__ . "/Event.php";
-require_once __DIR__ . "/Manager.php";
-
 class Producer
 {
     private $manager;
 
-    public function __construct()
+    public function __construct($manager)
     {
-        $this->manager = new Manager();
+        $this->manager = $manager;
     }
 
     public function logEvent($type, $name, $status = Message::SUCCESS, $data = [])

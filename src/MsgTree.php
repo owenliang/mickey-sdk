@@ -2,5 +2,5 @@
 
 class MsgTree
 {
-
+    public $rootTransaction;
 }

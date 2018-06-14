@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__ . "/Message.php";
-
 // transaction内可以记录event
 class Event extends Message
 {
