@@ -8,7 +8,7 @@ $context->domain = 'mickey.sdk';
 $context->hostname = gethostname();
 $context->ip = "127.0.0.1";
 
-$manager = new \cat\Manager();
+$manager = new \cat\Manager(['routerApi' => 'http://cat-itoamms.smzdm.com/cat/s/router']);
 $producer = new \cat\Producer($manager);
 $manager->setServerContext($context);
 

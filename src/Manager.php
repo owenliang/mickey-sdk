@@ -16,11 +16,24 @@ class Manager
     // 构建本地transaction树
     private $builder;
 
-    public function __construct()
+    // CAT基础配置
+    private $config = [
+        'routerTTL' => 3600, // 每小时重新拉取一次cat服务器地址
+        'routerApi' => 'http://localhost/cat/s/router'  // 获取日志上报地址
+    ];
+
+    public function __construct($config = [])
     {
         $this->codec = new Codec($this);
         $this->builder = new Builder($this);
         $this->sender = new Sender($this);
+        $this->config = array_merge($this->config, $config);
+    }
+
+    // 获取CAT配置
+    public function getConfig()
+    {
+        return $this->config;
     }
 
     // 设置服务端上下文

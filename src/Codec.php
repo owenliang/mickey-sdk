@@ -102,8 +102,7 @@ class Codec
     // 编码本地的调用树
     public function encode($rootTran)
     {
-        $header = $this->encodeHeader();
-        $body = $this->encodeMessage($rootTran);
-        return $header . $body;
+        $catData = $this->encodeHeader() . $this->encodeMessage($rootTran);
+        return pack('N', strlen($catData)) . $catData;
     }
 }
