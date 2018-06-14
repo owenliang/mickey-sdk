@@ -15,6 +15,9 @@ class Codec
 
     const TIME_FORMAT = 'Y-m-d H:i:s';
 
+    const TAB = "\t";
+    const LF = "\n";
+
     private $manager;
 
     public function __construct($manager)
@@ -44,7 +47,7 @@ class Codec
             $context->catRootMessageId,
             self::SESSION_TOKEN,
         ];
-        return implode('\t', $fields) . '\n';
+        return implode(self::TAB, $fields) . self::LF;
     }
 
     private function encodeLine($msgType, $message, $policy)
@@ -70,8 +73,8 @@ class Codec
             $fields[] = is_array($message->data) ? json_encode($message->data) : $message->data;
         }
 
-        $fields = implode('\t', $fields);
-        return $fields . '\t\n';
+        $fields = implode(self::TAB, $fields);
+        return $fields . self::TAB . self::LF;
     }
 
     private function encodeMessage($message)
