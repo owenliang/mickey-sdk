@@ -52,12 +52,12 @@ class Codec
 
     private function encodeLine($msgType, $message, $policy)
     {
-        $fields = [$msgType];
+        $fields = [];
 
         if ($msgType == 'T') {
-            $fields[] = $this->formatTimestamp($message->timestamp + $message->duration);
+            $fields[] = $msgType . $this->formatTimestamp($message->timestamp + $message->duration);
         } else {
-            $fields[] = $this->formatTimestamp($message->timestamp);
+            $fields[] = $msgType . $this->formatTimestamp($message->timestamp);
         }
 
         $fields[] = $message->type;
