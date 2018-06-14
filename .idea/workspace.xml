@@ -2,17 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6969741e-721e-4aac-8c85-c1fcbfecda59" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Builder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cat.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cat.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Context.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Context.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Event.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Event.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Builder.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Builder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Manager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Message.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Message.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MsgTree.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Producer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Producer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Transaction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/test_Cat.php" beforeDir="false" afterPath="$PROJECT_DIR$/test/test_Cat.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -26,8 +19,8 @@
       <file leaf-file-name="Producer.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Producer.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="431">
-              <caret line="27" column="5" lean-forward="true" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+            <state relative-caret-position="126">
+              <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -35,8 +28,17 @@
       <file leaf-file-name="Builder.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Builder.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-190">
-              <caret line="3" column="10" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="10" />
+            <state relative-caret-position="441">
+              <caret line="32" column="5" lean-forward="true" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Codec.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Codec.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="15" column="36" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -44,17 +46,26 @@
       <file leaf-file-name="Manager.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Manager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="41" column="50" selection-start-line="41" selection-start-column="50" selection-end-line="41" selection-end-column="50" />
+            <state relative-caret-position="349">
+              <caret line="36" column="42" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_Cat.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Sender.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Sender.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_Cat.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/test_Cat.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="16" column="19" lean-forward="true" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+            <state relative-caret-position="216">
+              <caret line="12" column="31" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -70,14 +81,16 @@
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/src/Event.php" />
         <option value="$PROJECT_DIR$/src/Message.php" />
-        <option value="$PROJECT_DIR$/src/Producer.php" />
         <option value="$PROJECT_DIR$/src/Cat.php" />
         <option value="$PROJECT_DIR$/src/MsgTree.php" />
         <option value="$PROJECT_DIR$/src/Transaction.php" />
         <option value="$PROJECT_DIR$/src/Context.php" />
         <option value="$PROJECT_DIR$/src/Builder.php" />
+        <option value="$PROJECT_DIR$/src/Producer.php" />
         <option value="$PROJECT_DIR$/src/Manager.php" />
         <option value="$PROJECT_DIR$/test/test_Cat.php" />
+        <option value="$PROJECT_DIR$/src/Codec.php" />
+        <option value="$PROJECT_DIR$/src/Sender.php" />
       </list>
     </option>
   </component>
@@ -154,12 +167,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1528940091840</updated>
-      <workItem from="1528940093119" duration="8218000" />
+      <workItem from="1528940093119" duration="9703000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8218000" />
+    <option name="totallyTimeSpent" value="9703000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="37" y="23" width="1793" height="1057" extended-state="0" />
@@ -245,29 +258,43 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Producer.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="27" column="5" lean-forward="true" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Builder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-190">
-          <caret line="3" column="10" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Manager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="41" column="50" selection-start-line="41" selection-start-column="50" selection-end-line="41" selection-end-column="50" />
+        <state relative-caret-position="126">
+          <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/test_Cat.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="16" column="19" lean-forward="true" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+        <state relative-caret-position="216">
+          <caret line="12" column="31" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Builder.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="32" column="5" lean-forward="true" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Codec.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="15" column="36" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Manager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="349">
+          <caret line="36" column="42" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Sender.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
         </state>
       </provider>
     </entry>

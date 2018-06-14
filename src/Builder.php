@@ -18,10 +18,17 @@ class Builder
     {
         if ($message instanceof Transaction) {
             $message->messageId = $this->manager->generateMessageId(); // 事务唯一ID
+        } else if (!count($this->transStack)) { // 普通消息必须嵌套在事务里
+            return;
+        }
+
+        // 嵌套到前一个事务里
+        if (count($this->transStack)) {
+            $this->transStack[count($this->transStack) - 1]->children[] = $message;
+        }
+        // 如果是事务，那么作为新的上下文
+        if ($message instanceof Transaction) {
             $this->transStack[] = $message;
-        } else {
-            $curTran = $this->transStack[count($this->transStack) - 1];
-            $curTran->children[] = $message;
         }
     }
 

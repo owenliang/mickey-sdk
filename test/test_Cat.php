@@ -8,10 +8,14 @@ $context->domain = 'mickey-sdk';
 $context->hostname = gethostname();
 $context->ip = "127.0.0.1";
 
-$manager = new \cat\Manager($context);
-
+$manager = new \cat\Manager();
 $producer = new \cat\Producer($manager);
+$manager->setContext($context);
 
 $producer->startTransaction('URL', '/');
 
-var_dump($manager);
+$producer->startTransaction('Redis', 'GET', ['key' => 'user:110']);
+
+$producer->endTransaction();
+
+$producer->endTransaction();

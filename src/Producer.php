@@ -24,6 +24,6 @@ class Producer
 
     public function endTransaction($status = Message::SUCCESS, $data = [])
     {
-        $this->manager->endTransaction();
+        $this->manager->endTransaction($status, $data);
     }
 }

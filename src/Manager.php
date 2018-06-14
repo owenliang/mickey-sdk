@@ -4,6 +4,9 @@ namespace cat;
 // 管理本地调用的构建与发送
 class Manager
 {
+    // 序列化本地调用链
+    private $codec;
+
     // 发送日志给CAT
     private $sender;
 
@@ -13,10 +16,16 @@ class Manager
     // 构建本地transaction树
     private $builder;
 
-    public function __construct($context)
+    public function __construct()
+    {
+        $this->codec = new Codec($this);
+        $this->builder = new Builder($this);
+        $this->sender = new Sender($this);
+    }
+
+    public function setContext($context)
     {
         $this->context = $context;
-        $this->builder = new Builder($this);
     }
 
     // 结束最近一个事务
@@ -24,7 +33,8 @@ class Manager
     {
         $rootTran = $this->builder->endTransaction($status, $data);
         if ($rootTran) {
-            // $this->>sender->buildAndSend($context, $rootTran);
+            $catData = $this->codec->encode($rootTran);
+            $this->sender->send($catData);
         }
     }
 
@@ -66,5 +76,11 @@ class Manager
         \sem_release($sem); //  放锁
 
         return "{$this->context->domain}-{$hexIp}-{$hour}-{$counter}";
+    }
+
+    // 获取分布式调用链上下文
+    public function getContext()
+    {
+        return $this->context;
     }
 }
