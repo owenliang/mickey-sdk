@@ -17,8 +17,8 @@ $producer->startTransaction('URL', '/');
 $producer->startTransaction('Redis', 'GET', ['key' => 'user:110']);
 $producer->logEvent('Redis.addr', 'mickey-cache.com');
 
+// 上下文可以注入到RPC中去
 $clientContext = $manager->getClientContext();
-var_dump($clientContext);
 
 $producer->endTransaction();
 
