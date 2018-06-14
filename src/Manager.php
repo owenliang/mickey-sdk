@@ -19,7 +19,8 @@ class Manager
     // CAT基础配置
     private $config = [
         'routerTTL' => 3600, // 每小时重新拉取一次cat服务器地址
-        'routerApi' => 'http://localhost/cat/s/router'  // 获取日志上报地址
+        'routerApi' => 'http://localhost/cat/s/router',  // 获取日志上报地址
+        'tcpTimeout' => 2000, // 上报超时
     ];
 
     public function __construct($config = [])

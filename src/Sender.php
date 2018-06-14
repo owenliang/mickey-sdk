@@ -56,7 +56,7 @@ class Sender
                 }
             }
         }
-        
+
         // 异常覆盖
         if (!shm_has_var($shm, 2) || shm_get_var($shm, 2) < 0) {
             shm_put_var($shm, 2, 0);
@@ -78,12 +78,136 @@ class Sender
         return $addr;
     }
 
+    private function curTimestampMs()
+    {
+        return intval(microtime(true) * 1000);
+    }
+
+    private function connect($ip, $port, &$timeoutMs)
+    {
+        // 非阻塞socket
+        $socket = \socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+        if (empty($socket)) {
+            return false;
+        }
+        \socket_set_nonblock($socket);
+
+        // 非阻塞连接
+        if (!\socket_connect($socket, $ip, $port)) {
+            if  (socket_last_error($socket) != SOCKET_EINPROGRESS) {
+                goto FAIL;
+            }
+            socket_clear_error($socket);
+        } else {
+            return $socket;
+        }
+
+        // 开始时间
+        $st = $this->curTimestampMs();
+
+        do {
+            $timeUsed = $this->curTimestampMs() - $st;
+            if ($timeUsed >= $timeoutMs) {
+                goto FAIL;
+            }
+            $waitTime = $timeoutMs - $timeUsed;
+
+            // 事件循环
+            $r = null;
+            $w = [$socket];
+            $e = [$socket];
+
+            $n = \socket_select($r, $w, $e, $waitTime / 1000, ($waitTime % 1000) * 1000);
+            if ($n === false) {
+                if (\socket_last_error() != SOCKET_EINTR) {  // 出致命错误
+                    goto FAIL;
+                }
+            } else if ($n === 0) { // 超时
+                goto FAIL;
+            } else { // 发生了事件
+                if (socket_last_error($socket) != 0) { // 发生错误事件
+                    goto FAIL;
+                }
+                break;
+            }
+        } while (1);
+
+        $timeoutMs -= $this->curTimestampMs() - $st; // 减去耗时
+        return $socket;
+
+        FAIL:
+        \socket_close($socket);
+        return false;
+    }
+
+    private function write($socket, $data, &$timeoutMs)
+    {
+        // 已发出的字节数
+        $outLen = 0;
+
+        // 开始时间
+        $st = $this->curTimestampMs();
+
+        while ($outLen < strlen($data)) {
+            $timeUsed = $this->curTimestampMs() - $st;
+            if ($timeUsed >= $timeoutMs) {
+                goto FAIL;
+            }
+            $waitTime = $timeoutMs - $timeUsed;
+
+            // 事件循环
+            $r = null;
+            $w = [$socket];
+            $e = [$socket];
+
+            $n = \socket_select($r, $w, $e, $waitTime / 1000, ($waitTime % 1000) * 1000);
+            if ($n === false) {
+                if (\socket_last_error() != SOCKET_EINTR) {  // 出致命错误
+                    goto FAIL;
+                }
+            } else if ($n === 0) { // 超时
+                goto FAIL;
+            } else { // 发生了事件
+                if (!in_array($socket, $w)) { // 发生了错误
+                    goto FAIL;
+                }
+                $out = socket_write($socket, substr($data, $outLen));
+                if ($out === false) {
+                    if (socket_last_error($socket) != SOCKET_EAGAIN) {
+                        goto FAIL;
+                    }
+                } else {
+                    $outLen += $out;
+                }
+                break;
+            }
+        }
+
+        $timeoutMs -= $this->curTimestampMs() - $st; // 减去耗时
+        return true;
+
+        FAIL:
+        return false;
+    }
+
     public function send($catData)
     {
         // 获取1个CAT上报服务器
         $addr = $this->chooseCatServer();
 
-        // TCP上报
-        var_dump($addr);
+        if (!empty($addr)) {
+            $config = $this->manager->getConfig();
+            $timeoutMs = $config['tcpTimeout'];
+
+            // 连接
+            $socket = $this->connect($addr['ip'], $addr['port'], $timeoutMs);
+            if (empty($socket)) {
+                return;
+            }
+
+            // 发送
+            $this->write($socket, $catData, $timeoutMs);
+            socket_close($socket);
+        }
     }
 }
