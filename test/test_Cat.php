@@ -12,10 +12,10 @@ $manager = new \cat\Manager(['routerApi' => 'http://cat-itoamms.smzdm.com/cat/s/
 $producer = new \cat\Producer($manager);
 $manager->setServerContext($context);
 
-$context->catRootMessageId =  $context->catChildMessageId = $manager->generateMessageId();
+$context->catChildMessageId = $manager->generateMessageId();
 
-$producer->startTransaction('URL', '/index');
+$producer->startTransaction('URL', '/api/look11');
 
-$producer->logEvent('FROM', 'mickey');
+$producer->logEvent('FROM', 'Request.from', '	/api/look <= api.smzdm.com/v1/util/map/geocode');
 
 $producer->endTransaction();
