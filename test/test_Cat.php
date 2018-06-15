@@ -12,16 +12,10 @@ $manager = new \cat\Manager(['routerApi' => 'http://cat-itoamms.smzdm.com/cat/s/
 $producer = new \cat\Producer($manager);
 $manager->setServerContext($context);
 
-$context->catRootMessageId = $context->catChildMessageId = $manager->generateMessageId();
+$context->catRootMessageId =  $context->catChildMessageId = $manager->generateMessageId();
 
-$producer->startTransaction('URL', '/');
+$producer->startTransaction('URL', '/index');
 
-$producer->startTransaction('Redis', 'GET', ['key' => 'user:110']);
-$producer->logEvent('Redis.addr', 'mickey-cache.com');
-
-// 上下文可以注入到RPC中去
-$clientContext = $manager->getClientContext();
-
-$producer->endTransaction();
+$producer->logEvent('FROM', 'mickey');
 
 $producer->endTransaction();

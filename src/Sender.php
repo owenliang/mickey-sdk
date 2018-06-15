@@ -206,7 +206,9 @@ class Sender
             }
 
             // 发送
-            $this->write($socket, $catData, $timeoutMs);
+            if ($this->write($socket, $catData, $timeoutMs)) {
+                // echo $catData;
+            }
             socket_close($socket);
         }
     }

@@ -43,10 +43,10 @@ class Codec
             self::THREAD_GROUP_NAME,
             getmypid(),
             self::THREAD_NAME,
-            $context->catChildMessageId,
-            $context->catParentMessageId,
-            $context->catRootMessageId,
-            self::SESSION_TOKEN,
+            $context->catChildMessageId,     // message id
+            $context->catParentMessageId,   // parent id
+            $context->catRootMessageId,     // root id
+            self::SESSION_TOKEN,    // ''
         ];
         return implode(self::TAB, $fields) . self::LF;
     }
