@@ -35,7 +35,7 @@ class Builder
     public function endTransaction($status, $data)
     {
         $tran = $this->transStack[count($this->transStack) - 1];
-        $tran->duration = intval(microtime(true) * 1000) - $tran->timestamp;
+        $tran->duration = intval(microtime(true) * 1000 * 1000) - $tran->timestamp;
         $tran->status = $status;
         $tran->data = array_merge_recursive($tran->data, $data);
         array_pop($this->transStack);

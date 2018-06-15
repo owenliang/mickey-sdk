@@ -117,7 +117,7 @@ class Sender
             $w = [$socket];
             $e = [$socket];
 
-            $n = \socket_select($r, $w, $e, $waitTime / 1000, ($waitTime % 1000) * 1000);
+            $n = \socket_select($r, $w, $e, intval($waitTime / 1000), ($waitTime % 1000) * 1000);
             if ($n === false) {
                 if (\socket_last_error() != SOCKET_EINTR) {  // 出致命错误
                     goto FAIL;
@@ -160,7 +160,7 @@ class Sender
             $w = [$socket];
             $e = [$socket];
 
-            $n = \socket_select($r, $w, $e, $waitTime / 1000, ($waitTime % 1000) * 1000);
+            $n = \socket_select($r, $w, $e, intval($waitTime / 1000), ($waitTime % 1000) * 1000);
             if ($n === false) {
                 if (\socket_last_error() != SOCKET_EINTR) {  // 出致命错误
                     goto FAIL;

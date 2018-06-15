@@ -12,8 +12,7 @@ $manager = new \cat\Manager(['routerApi' => 'http://cat-itoamms.smzdm.com/cat/s/
 $producer = new \cat\Producer($manager);
 $manager->setServerContext($context);
 
-// $context->catRootMessageId =
-$context->catChildMessageId = $manager->generateMessageId();
+$context->catRootMessageId = $context->catChildMessageId = $manager->generateMessageId();
 
 $producer->startTransaction('URL', '/');
 

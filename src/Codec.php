@@ -27,7 +27,8 @@ class Codec
 
     private function formatTimestamp($timestamp)
     {
-        $date = date(self::TIME_FORMAT, $timestamp / 1000);
+        $timestamp = intval($timestamp / 1000); // 毫秒
+        $date = date(self::TIME_FORMAT, intval($timestamp / 1000));
         return sprintf("%s.%03d", $date, $timestamp % 1000);
     }
 
@@ -67,7 +68,7 @@ class Codec
             $fields[] = $message->status;
 
             if ($policy == self::WITH_DURATION) {
-                $fields[] = $message->duration . 'ms';
+                $fields[] = $message->duration . 'us';
             }
 
             $fields[] = is_array($message->data) ? json_encode($message->data) : $message->data;
@@ -84,7 +85,7 @@ class Codec
         if ($message instanceof Transaction) {
             // 原子transaction
             if (!count($message->children)) {
-                $this->encodeLine('A', $message, self::WITH_DURATION);
+                $lines[] = $this->encodeLine('A', $message, self::WITH_DURATION);
             } else {
                 $lines[] = $this->encodeLine('t', $message, self::WITHOUT_STATUS);
                 foreach ($message->children as $child) {

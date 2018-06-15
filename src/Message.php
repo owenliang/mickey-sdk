@@ -16,7 +16,7 @@ class Message
     {
         $this->type = $type;
         $this->name = $name;
-        $this->timestamp = intval(microtime(true) * 1000);
+        $this->timestamp = intval(microtime(true) * 1000 * 1000);
         $this->status = $status;
         $this->data = $data;
     }
