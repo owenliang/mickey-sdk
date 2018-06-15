@@ -14,8 +14,12 @@ $manager->setServerContext($context);
 
 $context->catChildMessageId = $manager->generateMessageId();
 
-$producer->startTransaction('URL', '/api/look11');
+$producer->startTransaction('URL', '/api/redis111');
 
 $producer->logEvent('FROM', 'Request.from', '	/api/look <= api.smzdm.com/v1/util/map/geocode');
+
+$producer->startTransaction('REDIS', 'GET');
+$producer->logEvent('REDIS', "ADDR", 0, 'localhost:6379');
+$producer->endTransaction();
 
 $producer->endTransaction();
