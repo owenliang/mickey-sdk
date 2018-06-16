@@ -95,6 +95,8 @@ class Codec
             }
         } else if ($message instanceof Event) {
             $lines[] = $this->encodeLine('E', $message, self::WITH_DEFAULT);
+        } else if ($message instanceof Metric) {
+            $lines[] = $this->encodeLine('M', $message, self::WITH_DEFAULT);
         }
 
         return implode('', $lines);
