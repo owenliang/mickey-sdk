@@ -18,7 +18,7 @@ $clientContext = (function($context)
     $manager->setServerContext($context);
 
 // 调用链第一环, 没有parent span
-    $context->catChildMessageId = $manager->generateMessageId();
+    $context->catChildMessageId = $manager->generateMessageId('mickey.smzdm.com');
 
 // CAT消息构造
     $producer = new \cat\Producer($manager);
@@ -31,7 +31,7 @@ $clientContext = (function($context)
 
 // Transaction应该叫Call
     $producer->startTransaction('Call', 'https://www.baidu.com/login');   // 访问了哪个服务的哪个接口
-    $clientContext = $manager->getClientContext();
+    $clientContext = $manager->getClientContext("www.baidu.com");
 
     // 这个字段必须设置：记录Client side span
     $producer->logEvent('RemoteCall', '', 0, $clientContext->catChildMessageId);

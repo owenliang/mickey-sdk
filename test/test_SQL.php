@@ -13,7 +13,7 @@ $manager = new \cat\Manager(['routerApi' => 'http://mickey.smzdm.com:8080/cat/s/
 $manager->setServerContext($context);
 
 // 没有服务端Span, 我们自己生成一个root span的标示, parent span为空
-$context->catChildMessageId = $manager->generateMessageId();
+$context->catChildMessageId = $manager->generateMessageId('mickey.smzdm.com');
 
 // CAT消息构造
 $producer = new \cat\Producer($manager);

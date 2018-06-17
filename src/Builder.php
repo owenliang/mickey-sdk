@@ -17,9 +17,7 @@ class Builder
     public function addMessage($message)
     {
         if ($message instanceof Transaction) {
-            if (count($this->transStack)) { // 最外层的transaction是server side, 对应的message id在server contexts里
-                $message->messageId = $this->manager->generateMessageId(); // 事务唯一ID
-            }
+            // nothing to do
         } else if (!count($this->transStack)) { // 普通消息必须嵌套在事务里
             return;
         }

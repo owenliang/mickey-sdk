@@ -13,7 +13,7 @@ $manager = new \cat\Manager(['routerApi' => 'http://mickey.smzdm.com:8080/cat/s/
 $manager->setServerContext($context);
 
 // 没有服务端Span, 我们自己生成一个root span的标示, parent span为空
-$context->catChildMessageId = $manager->generateMessageId();
+$context->catChildMessageId = $manager->generateMessageId('mickey.smzdm.com');
 
 // CAT消息构造
 $producer = new \cat\Producer($manager);
@@ -27,7 +27,7 @@ $producer->logEvent('URL', 'URL.Method', 0, 'GET /api/user/323142/login');
 // Transaction应该叫Call
 $producer->startTransaction('Call', 'https://www.baidu.com/login');   // 访问了哪个服务的哪个接口
 
-$clientContext = $manager->getClientContext();
+$clientContext = $manager->getClientContext("www.baidu.com");
 // 这个字段必须设置：记录Client side span
 $producer->logEvent('RemoteCall', '', 0, $clientContext->catChildMessageId);
 

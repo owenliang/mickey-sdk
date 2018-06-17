@@ -50,12 +50,15 @@ class Manager
     }
 
     // 获取客户端上下文
-    public function getClientContext()
+    public function getClientContext($domain)
     {
         $curTran = $this->builder->curTransaction();
+        if (empty($curTran->messageId)) {
+            $curTran->messageId = $this->generateMessageId($domain);
+        }
         $context = new Context();
-        $context->catChildMessageId = $curTran->messageId;
-        $context->catParentMessageId = $this->context->catParentMessageId;
+        $context->catChildMessageId = $curTran->messageId;  // 下一个Span有新的唯一ID
+        $context->catParentMessageId = $this->context->catChildMessageId;   // 当前Span的ID作为下一个Span的父ID
         $context->catRootMessageId = $this->context->catRootMessageId;
         return $context;
     }
@@ -77,10 +80,10 @@ class Manager
     }
 
     // 分配message id
-    public function generateMessageId()
+    public function generateMessageId($domain)
     {
-        $semKey = crc32('CAT-COUNTER-LOCK:' . $this->context->domain);
-        $shmKey = crc32('CAT-COUNTER-SHM:' . $this->context->domain);
+        $semKey = crc32('CAT-COUNTER-LOCK:' . $domain);
+        $shmKey = crc32('CAT-COUNTER-SHM:' . $domain);
 
         $sem = \sem_get($semKey);
         $shm = \shm_attach($shmKey, 1 * 1024); // 1KB
@@ -106,6 +109,6 @@ class Manager
 
         $hexIp = dechex(ip2long($this->context->ip));
 
-        return "{$this->context->domain}-{$hexIp}-{$hour}-{$counter}";
+        return "{$domain}-{$hexIp}-{$hour}-{$counter}";
     }
 }
