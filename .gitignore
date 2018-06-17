@@ -1,2 +1,4 @@
 /vendor/
 .idea
+/doc/secret
+.DS_Store
