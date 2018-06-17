@@ -55,7 +55,7 @@ class Manager
         $curTran = $this->builder->curTransaction();
         $context = new Context();
         $context->catChildMessageId = $curTran->messageId;
-        $context->catParentMessageId = $this->context->catChildMessageId;
+        $context->catParentMessageId = $this->context->catParentMessageId;
         $context->catRootMessageId = $this->context->catRootMessageId;
         return $context;
     }

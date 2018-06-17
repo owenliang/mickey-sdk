@@ -26,7 +26,13 @@ $producer->logEvent('URL', 'URL.Method', 0, 'GET /api/user/323142/login');
 
 // Transaction应该叫Call
 $producer->startTransaction('Call', 'https://www.baidu.com/login');   // 访问了哪个服务的哪个接口
+
+$clientContext = $manager->getClientContext();
+// 这个字段必须设置：记录Client side span
+$producer->logEvent('RemoteCall', '', 0, $clientContext->catChildMessageId);
+
 sleep(1);   // 模拟Call花费了1秒，造成一个Long-call
+
 $producer->logEvent('Call.Remote', 'https://www.baidu.com/login', 0, ['uid' => 323142]);
 $producer->endTransaction();
 
