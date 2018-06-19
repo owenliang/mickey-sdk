@@ -35,8 +35,8 @@ class Builder
     public function endTransaction($status, $data)
     {
         $tran = $this->transStack[count($this->transStack) - 1];
-        $tran->status = $status;
-        $tran->data = array_merge_recursive($tran->data, $data);
+        $tran->setStatus($status);
+        $tran->setData($data);
         $tran->complete();
         array_pop($this->transStack);
         if (!count($this->transStack)) {    // root transaction已弹出, 准备发送给cat
