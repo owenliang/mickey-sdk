@@ -17,4 +17,10 @@ class Transaction extends Message
     {
         parent::__construct($type, $name, self::SUCCESS, $data);
     }
+
+    public function complete()
+    {
+        $this->duration = intval(microtime(true) * 1000 * 1000) - $this->timestamp;
+        parent::complete();
+    }
 }

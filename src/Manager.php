@@ -73,6 +73,12 @@ class Manager
         }
     }
 
+    // 未闭合的事务数量
+    public function transactionCount()
+    {
+        return $this->builder->transactionCount();
+    }
+
     // message可以是transaction, event
     public function addMessage($message)
     {

@@ -15,6 +15,7 @@ class Producer
     public function logEvent($type, $name, $status = Message::SUCCESS, $data = [])
     {
         $event = new Event($type, $name, $status, $data);
+        $event->complete();
         $this->manager->addMessage($event);
     }
 
@@ -24,6 +25,7 @@ class Producer
     public function logMetric($name, $status, $data)
     {
         $metric = new Metric('', $name, $status, $data);
+        $metric->complete();
         $this->manager->addMessage($metric);
     }
 

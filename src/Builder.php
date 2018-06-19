@@ -35,9 +35,9 @@ class Builder
     public function endTransaction($status, $data)
     {
         $tran = $this->transStack[count($this->transStack) - 1];
-        $tran->duration = intval(microtime(true) * 1000 * 1000) - $tran->timestamp;
         $tran->status = $status;
         $tran->data = array_merge_recursive($tran->data, $data);
+        $tran->complete();
         array_pop($this->transStack);
         if (!count($this->transStack)) {    // root transaction已弹出, 准备发送给cat
             return $tran;
@@ -48,5 +48,11 @@ class Builder
     public function curTransaction()
     {
         return $this->transStack[count($this->transStack) - 1];
+    }
+
+    // 未闭合的事务数量
+    public function transactionCount()
+    {
+        return count($this->transStack);
     }
 }

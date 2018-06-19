@@ -80,6 +80,10 @@ class Codec
 
     private function encodeMessage($message)
     {
+        if (!$message->isCompleted()) {
+            // XX: SDK应该保证不出现这种情况
+        }
+
         $lines = [];
 
         if ($message instanceof Transaction) {
